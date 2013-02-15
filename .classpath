@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="examples/" kind="src" path="java/src/resources"/>
+	<classpathentry excluding="resources/|ari/dnrs/rtk/addon/examples/res/" kind="src" path="java/src"/>
+	<classpathentry kind="src" path="test/showcase"/>
+	<classpathentry kind="src" path="test/manual-response-test"/>
+	<classpathentry kind="src" path="test/unit"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER"/>
+	<classpathentry kind="lib" path="java/lib/bcprov-jdk14-115.jar"/>
+	<classpathentry kind="lib" path="java/lib/log4j.jar"/>
+	<classpathentry kind="lib" path="java/lib/regexp.jar"/>
+	<classpathentry kind="lib" path="java/lib/xerces.jar"/>
+	<classpathentry kind="lib" path="java/lib/junit-4.8.2.jar"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>

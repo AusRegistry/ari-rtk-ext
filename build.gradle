@@ -1,0 +1,60 @@
+apply plugin: 'java'
+
+sourceCompatibility = 1.6
+version = toolkitVersion
+
+ext {
+    junitVersion = '4.8.2'
+    xercesVersion = '1.4.0'
+    regexpVersion = '1.3'
+    artifactsDir = "$projectDir/artifacts"
+}
+
+sourceSets {
+    test {
+        java.srcDir('src/test/unit')
+    }
+}
+
+repositories {
+    maven {
+        url 'http://nexus.office:8081/nexus/content/repositories/inhouse/'
+    }
+    maven {
+        url 'http://nexus.office:8081/nexus/content/repositories/central/'
+    }
+}
+
+dependencies {
+    testCompile "junit:junit:$junitVersion"
+    compile "xerces:xerces:$xercesVersion"
+    compile files('lib/epp-rtk-java.jar')
+    runtime "regexp:regexp:$regexpVersion"
+}
+
+task cleanArtifacts(type: Delete) {
+    delete artifactsDir
+}
+
+test {
+    outputs.upToDateWhen { false }
+}
+
+javadoc {
+    destinationDir = file("$artifactsDir/javadoc")
+}
+
+clean.dependsOn cleanArtifacts
+
+test.dependsOn jar
+
+uploadArchives.dependsOn javadoc
+
+uploadArchives {
+    uploadDescriptor = false
+    repositories {
+        flatDir {
+            dirs artifactsDir
+        }
+    }
+}

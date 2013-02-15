@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd">
+	<response>
+		<result code="1000">
+			<msg lang="en">Command completed successfully</msg>
+		</result>
+		<resData>
+			<domain:infData xmlns:domain="urn:ietf:params:xml:ns:domain-1.0"
+				xsi:schemaLocation="urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd">
+				<domain:name>xn--2-pnc5cbax.xn--mgbaam7a8h</domain:name>
+				<domain:roid>D9597A27EE0785B63D9CB71EBB56D6276-ARI</domain:roid>
+				<domain:status s="inactive" />
+				<domain:registrant>MYCONTACT</domain:registrant>
+				<domain:contact type="admin">MYCONTACT</domain:contact>
+				<domain:contact type="billing">MYCONTACT</domain:contact>
+				<domain:contact type="tech">MYCONTACT</domain:contact>
+				<domain:clID>Alpha</domain:clID>
+				<domain:crID>Alpha</domain:crID>
+				<domain:crDate>2012-05-07T00:00:33.0Z</domain:crDate>
+				<domain:upID>Alpha</domain:upID>
+				<domain:upDate>2012-05-09T00:36:19.0Z</domain:upDate>
+				<domain:exDate>2014-05-07T00:00:34.0Z</domain:exDate>
+				<domain:trDate>2012-05-07T03:37:44.0Z</domain:trDate>
+				<domain:authInfo>
+					<domain:pw>password123</domain:pw>
+				</domain:authInfo>
+			</domain:infData>
+		</resData>
+		<extension>
+			<infData xmlns="urn:rbp:params:xml:ns:idn-1.0">
+				<languageTag>ar-AE</languageTag>
+			</infData>
+			<infData xmlns="urn:X-ar:params:xml:ns:variant-1.0">
+				<variant userForm="شم2میم.امارات">xn--2-pnc5cba32f.xn--mgbaam7a8h</variant>
+				<variant userForm="شم٢مىم.امارات">xn--zgb8aaat2m.xn--mgbaam7a8h</variant>
+				<variant userForm="شم۲میم.امارات">xn--zgb8aaa88d8g.xn--mgbaam7a8h</variant>
+			</infData>
+		</extension>
+		<trID>
+			<svTRID>23300</svTRID>
+		</trID>
+	</response>
+</epp>
