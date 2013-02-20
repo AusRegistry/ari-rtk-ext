@@ -1,5 +1,8 @@
 AusRegistry's EPP Extension Add on Library for the Universal Registry/Registrar Toolkit.
 
+Changes in version 2.0.6.2
+* Cleaned up the gradle script
+
 Changes in version 2.0.6.1
 * Removed classes to support IDNA extension
 * Added idn-1.0 extension. Added implementation to for IDN extension for domain create and domain info response 

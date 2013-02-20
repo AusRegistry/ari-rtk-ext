@@ -17,12 +17,7 @@ sourceSets {
 }
 
 repositories {
-    maven {
-        url 'http://nexus.office:8081/nexus/content/repositories/inhouse/'
-    }
-    maven {
-        url 'http://nexus.office:8081/nexus/content/repositories/central/'
-    }
+   mavenCentral()
 }
 
 dependencies {
