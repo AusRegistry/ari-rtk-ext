@@ -1,5 +1,12 @@
 package ari.dnrs.rtk.addon.utils;
 
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
+import java.util.logging.Logger;
+
+import javax.xml.datatype.DatatypeConfigurationException;
+import javax.xml.datatype.DatatypeFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -69,4 +76,14 @@ public class XMLUtil {
         return parentDocument.createElement(name);
     }
 
+    public static GregorianCalendar fromXSDateTime(String dateTime) throws DatatypeConfigurationException {
+        GregorianCalendar cal = null;
+
+        if (dateTime != null && dateTime.length() != 0) {
+            cal = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateTime).toGregorianCalendar();
+            cal.setTimeZone(TimeZone.getTimeZone("UTC"));
+        }
+
+        return cal;
+    }
 }

@@ -10,4 +10,6 @@ public class XMLNamespaces {
     public static final String KVLIST_NAMESPACE = "urn:X-ar:params:xml:ns:kv-1.0";
     public static final String VARIANT_NAMESPACE = "urn:X-ar:params:xml:ns:variant-1.0";
 
+    public static final String PREMIUM_NAMESPACE =  "urn:ar:params:xml:ns:premium-1.0";
+    public static final String LAUNCH_NAMESPACE = "urn:ar:params:xml:ns:application-1.0";
 }
