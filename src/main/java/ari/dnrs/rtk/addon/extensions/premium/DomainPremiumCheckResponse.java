@@ -54,13 +54,16 @@ public class DomainPremiumCheckResponse extends EPPXMLBase {
         boolean isPremium = false;
         while (count < nodeList.getLength() && !nodeList.item(count).getNodeName().equals("cd")) {
             Node node = nodeList.item(count);
-            if (node.getNodeName().equals("name")) {
-                name = node.getFirstChild().getNodeValue();
-                isPremium = node.getAttributes().getNamedItem("premium").getNodeValue().equals("1");
-            } else if (node.getNodeName().equals("price")) {
-                price = BigDecimal.valueOf(Double.valueOf(node.getFirstChild().getNodeValue()));
-            } else if (node.getNodeName().equals("renewalPrice")) {
-                renewPrice = BigDecimal.valueOf(Double.valueOf(node.getFirstChild().getNodeValue()));
+            switch (PremiumTagNames.valueOf(node.getNodeName())) {
+                case name:
+                    name = node.getFirstChild().getNodeValue();
+                    isPremium = node.getAttributes().getNamedItem("premium").getNodeValue().equals("1");
+                    break;
+                case price:
+                    price = BigDecimal.valueOf(Double.valueOf(node.getFirstChild().getNodeValue()));
+                    break;
+                case renewalPrice:
+                    renewPrice = BigDecimal.valueOf(Double.valueOf(node.getFirstChild().getNodeValue()));
             }
             count++;
         }
@@ -140,5 +143,9 @@ public class DomainPremiumCheckResponse extends EPPXMLBase {
             return renewPrice;
         }
 
+    }
+
+    private enum PremiumTagNames {
+        name, price, renewalPrice
     }
 }

@@ -1,13 +1,9 @@
 package ari.dnrs.rtk.addon.extensions.launch;
 
-import java.util.Date;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import ari.dnrs.rtk.addon.utils.XMLUtil;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNull;

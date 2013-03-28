@@ -28,14 +28,17 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
 
             for (int count = 0; count < nodeList.getLength(); count++) {
                 Node node = nodeList.item(count);
-                if (node.getNodeName().equals("id")) {
-                    applicationId = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("name")) {
-                    name = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("crDate")) {
-                    createDate = XMLUtil.fromXSDateTime(node.getFirstChild().getNodeValue());
+                switch (TagNames.valueOf(node.getNodeName())) {
+                    case id:
+                        applicationId = node.getFirstChild().getNodeValue();
+                        break;
+                    case name:
+                        name = node.getFirstChild().getNodeValue();
+                        break;
+                    case crDate:
+                        createDate = XMLUtil.fromXSDateTime(node.getFirstChild().getNodeValue());
+                        break;
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -57,5 +60,9 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
 
     public String getApplicationId() {
         return applicationId;
+    }
+
+    private enum TagNames {
+        id, name, crDate, creData
     }
 }
