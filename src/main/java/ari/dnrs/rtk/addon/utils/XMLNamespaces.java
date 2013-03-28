@@ -12,4 +12,5 @@ public class XMLNamespaces {
 
     public static final String PREMIUM_NAMESPACE =  "urn:ar:params:xml:ns:premium-1.0";
     public static final String LAUNCH_NAMESPACE = "urn:ar:params:xml:ns:application-1.0";
+    public static final String VARIANT_V1_1_NAMESPACE = "urn:ar:params:xml:ns:variant-1.1";
 }

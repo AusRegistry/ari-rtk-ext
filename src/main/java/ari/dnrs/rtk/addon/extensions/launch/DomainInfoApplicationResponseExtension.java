@@ -12,7 +12,6 @@ import org.xml.sax.SAXException;
 import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
-import ari.dnrs.rtk.addon.utils.XMLUtil;
 
 public class DomainInfoApplicationResponseExtension  extends EPPXMLBase {
     private String applicationId;
