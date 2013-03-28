@@ -25,7 +25,6 @@ public class DomainVariantResponseExtensionV1_1 extends EPPXMLBase {
     public void fromXml(String responseXml) {
         try {
             xml_ = responseXml;
-            System.out.println(xml_);
             Element dataNode = getDocumentElement();
 
             if (dataNode.getElementsByTagNameNS(XMLNamespaces.VARIANT_V1_1_NAMESPACE,
