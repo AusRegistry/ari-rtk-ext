@@ -16,6 +16,11 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
+/**
+ * Use this to fetch the premium price information for domain check with premium response
+ *
+ * @see ari.dnrs.rtk.addon.extensions.premium.DomainPremiumCommandExtension
+ */
 public class DomainPremiumCheckResponse extends EPPXMLBase {
     private Map<String, PremiumInfo> premiumNameMap;
     private Map<Integer, PremiumInfo> premiumIndexMap;
@@ -25,6 +30,10 @@ public class DomainPremiumCheckResponse extends EPPXMLBase {
         premiumIndexMap = new HashMap<Integer, PremiumInfo>();
     }
 
+    /**
+     *
+     * @param premiumXml the xml to be processed
+     */
     public void fromXML(String premiumXml) {
 
         try {
@@ -73,32 +82,56 @@ public class DomainPremiumCheckResponse extends EPPXMLBase {
         return count;
     }
 
-    public boolean isPremium(String domainName) {
+    /**
+     * @param domainName domain name to be checked
+     * @return true if the domain is premium, false otherwise
+     */
+    public final boolean isPremium(final String domainName) {
         PremiumInfo premiumInfo = premiumNameMap.get(domainName);
         return premiumInfo != null && premiumInfo.isPremium();
     }
 
-    public BigDecimal getCreatePrice(String domainName) {
+    /**
+     * @param domainName domain name to be checked
+     * @return create price for domain if exists otherwise null
+     */
+    public final BigDecimal getCreatePrice(final String domainName) {
         PremiumInfo premiumInfo = premiumNameMap.get(domainName);
         return premiumInfo == null ? null : premiumInfo.getCreatePrice();
     }
 
-    public BigDecimal getRenewPrice(String domainName) {
+    /**
+     * @param domainName domain name to be checked
+     * @return renew price for domain if exists otherwise null
+     */
+    public final BigDecimal getRenewPrice(final String domainName) {
         PremiumInfo premiumInfo = premiumNameMap.get(domainName);
         return premiumInfo == null ? null : premiumInfo.getRenewPrice();
     }
 
-    public boolean isPremium(int index) {
+    /**
+     * @param index the index of domain to be checked
+     * @return true if the domain is premium, false otherwise
+     */
+    public final boolean isPremium(final int index) {
         PremiumInfo premiumInfo = premiumIndexMap.get(index);
         return premiumInfo != null && premiumInfo.isPremium();
     }
 
-    public BigDecimal getCreatePrice(int index) {
+    /**
+     * @param index the index of domain to be checked
+     * @return create price for domain if exists otherwise null
+     */
+    public final BigDecimal getCreatePrice(final int index) {
         PremiumInfo premiumInfo = premiumIndexMap.get(index);
         return premiumInfo == null ? null : premiumInfo.getCreatePrice();
     }
 
-    public BigDecimal getRenewPrice(int index) {
+    /**
+     * @param index the index of domain to be checked
+     * @return renew price for domain if exists otherwise null
+     */
+    public final BigDecimal getRenewPrice(final int index) {
         PremiumInfo premiumInfo = premiumIndexMap.get(index);
         return premiumInfo == null ? null : premiumInfo.getRenewPrice();
     }

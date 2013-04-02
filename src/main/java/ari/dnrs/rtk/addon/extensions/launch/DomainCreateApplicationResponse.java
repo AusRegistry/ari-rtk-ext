@@ -15,11 +15,24 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 import ari.dnrs.rtk.addon.utils.XMLUtil;
 
+/**
+ * Use this to access create data for a domain as provided in an EPP domain
+ * create response compliant with RFC5730 and RFC5731.  Such a service element
+ * is sent by a compliant EPP server in response to a valid domain create
+ * command with domain create application extension.
+ *
+ * @see ari.dnrs.rtk.addon.extensions.launch.DomainApplicationCommandExtension
+ * @see org.openrtk.idl.epprtk.domain.epp_DomainCreateReq
+ */
 public class DomainCreateApplicationResponse extends EPPXMLBase {
     private String applicationId;
     private String name;
     private GregorianCalendar createDate;
 
+    /**
+     *
+     * @param responseXml the response from application create operation
+     */
     public void fromXML(String responseXml) {
         try {
             xml_ = responseXml;
@@ -50,14 +63,26 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
 
     }
 
+    /**
+     *
+     * @return the create date
+     */
     public GregorianCalendar getCreateDate() {
         return createDate;
     }
 
+    /**
+     *
+     * @return the domain name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return the application id
+     */
     public String getApplicationId() {
         return applicationId;
     }

@@ -13,6 +13,14 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
+/**
+ * Use this to access info data for a domain as provided in an EPP domain
+ * info response compliant with RFC5731.  Such a service element
+ * is sent by a compliant EPP server in response to a valid domain info
+ * command with domain info application extension.
+ *
+ * @see ari.dnrs.rtk.addon.extensions.launch.DomainApplicationCommandExtension
+ */
 public class DomainInfoApplicationResponseExtension  extends EPPXMLBase {
     private String applicationId;
     private String phase;

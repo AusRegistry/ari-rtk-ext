@@ -15,6 +15,10 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 import ari.dnrs.rtk.addon.bean.IdnDomainVariant;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
+/**
+ * This class models the &lt;update&gt; element as documented in 'Variant Extension
+ * Mapping for the Extensible Provisioning Protocol (EPP)'.
+ */
 public class DomainUpdateVariantCommandExtensionV1_1  extends EPPXMLBase implements epp_Extension {
 
     private final List<IdnDomainVariant> addVariants = new ArrayList<IdnDomainVariant>();

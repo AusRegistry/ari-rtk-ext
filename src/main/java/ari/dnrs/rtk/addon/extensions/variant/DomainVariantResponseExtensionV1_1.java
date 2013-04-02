@@ -13,6 +13,19 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 import ari.dnrs.rtk.addon.bean.IdnDomainVariant;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
+/**
+ * Extension of the domain mapping of the EPP create/info response, as defined
+ * in RFC5730 and RFC5731, to domain name variants, the specification of which
+ * are in the XML schema definition urn:X-ar:params:xml:ns:variant-1.1.
+ *
+ * Instances of this class provide an interface to access create and info data
+ * for a domain as provided in an EPP domain create response. Such a service
+ * element is sent by a EPP server in response to a valid domain create/info
+ * command as implemented by the domain create and domain info, optionally with
+ * the variant extension.
+ *
+ * @see ari.dnrs.rtk.addon.extensions.variant.DomainUpdateVariantCommandExtensionV1_1
+ */
 public class DomainVariantResponseExtensionV1_1 extends EPPXMLBase {
     private List<IdnDomainVariant> variants;
     private final CommandName commandName;

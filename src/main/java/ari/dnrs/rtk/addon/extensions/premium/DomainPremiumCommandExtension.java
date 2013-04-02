@@ -13,12 +13,26 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
+/**
+ * Supports the premium extension for domain check, domain create and domain transfer commands
+ *
+ * @see org.openrtk.idl.epprtk.domain.epp_DomainCheckReq
+ * @see org.openrtk.idl.epprtk.domain.epp_DomainCreateReq
+ * @see org.openrtk.idl.epprtk.domain.epp_DomainTransferReq
+ */
 public class DomainPremiumCommandExtension extends EPPXMLBase implements epp_Extension {
 
     private final BigDecimal price;
     private final BigDecimal renewPrice;
     private CommandName command;
 
+    /**
+     *
+     * @param command The command name. Possible values are check, create and transfer
+     * @param price The create price
+     * @param renewPrice The renew price
+     * @throws epp_XMLException
+     */
     public DomainPremiumCommandExtension(final String command, BigDecimal price, BigDecimal renewPrice) throws
             epp_XMLException {
         this.price = price;
@@ -84,9 +98,14 @@ public class DomainPremiumCommandExtension extends EPPXMLBase implements epp_Ext
         element.appendChild(priceElement);
     }
 
+    /**
+     * There is no response extension for Premium commands, so this method is not implemented
+     *
+     * @param responseXml
+     * @throws epp_XMLException
+     */
     @Override
-    public void fromXML(final String s) throws epp_XMLException {
-        /* There is no response extension for Premium commands, so this method does not need to be implemented */
+    public void fromXML(final String responseXml) throws epp_XMLException {
     }
 
     private enum CommandName {
