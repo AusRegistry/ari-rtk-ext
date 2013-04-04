@@ -38,7 +38,7 @@ public class DomainUpdateVariantCommandExtensionV1_1  extends EPPXMLBase impleme
         try {
             variantExtensionXML = createXMLSnippetFromDoc(extensionDoc);
         } catch (final IOException e) {
-            throw new epp_XMLException("IOException occured while creating premium extension XML.\n" + e.getMessage());
+            throw new epp_XMLException("IOException occured while creating variant extension XML.\n" + e.getMessage());
         }
         return variantExtensionXML;
     }

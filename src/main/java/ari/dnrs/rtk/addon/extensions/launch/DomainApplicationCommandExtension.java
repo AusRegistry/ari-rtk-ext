@@ -95,10 +95,6 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
         this.applicationId = applicationId;
     }
 
-    public String getApplicationId() {
-        return applicationId;
-    }
-
     private enum CommandName {
         create, delete, update, info
     }
