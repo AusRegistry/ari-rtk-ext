@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import ari.dnrs.rtk.addon.utils.XMLNamespaces;
  * is sent by a compliant EPP server in response to a valid domain info
  * command with domain info application extension.
  *
- * @see ari.dnrs.rtk.addon.extensions.launch.DomainApplicationCommandExtension
+ * @see ari.dnrs.rtk.addon.extensions.app.DomainApplicationCommandExtension
  */
 public class DomainInfoApplicationResponseExtension  extends EPPXMLBase {
     private String applicationId;
@@ -30,15 +30,15 @@ public class DomainInfoApplicationResponseExtension  extends EPPXMLBase {
         try {
             xml_ = infoResponseXml;
             Element infDataNode = getDocumentElement();
-            NodeList nodeList = infDataNode.getElementsByTagNameNS(XMLNamespaces.LAUNCH_NAMESPACE, "*");
+            NodeList nodeList = infDataNode.getElementsByTagNameNS(XMLNamespaces.APPLICATION_NAMESPACE, "*");
 
             for (int count = 0; count < nodeList.getLength(); count++) {
                 Node node = nodeList.item(count);
-                if (node.getNodeName().equals("launch:id")) {
+                if (node.getNodeName().equals("app:id")) {
                     applicationId = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("launch:phase")) {
+                } else if (node.getNodeName().equals("app:phase")) {
                     phase = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("launch:status")) {
+                } else if (node.getNodeName().equals("app:status")) {
                     statuses.add(node.getAttributes().getNamedItem("s").getNodeValue());
                 }
 

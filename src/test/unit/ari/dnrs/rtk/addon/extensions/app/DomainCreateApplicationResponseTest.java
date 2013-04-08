@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 

@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import java.io.IOException;
 
@@ -13,8 +13,8 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
 /**
- * Supports the application launch extensions for domain create, domain delete, domain info and
- * domain update commands
+ * Supports the application extension for domain create, domain delete, domain info and
+ * domain update commands.
  *
  * @see org.openrtk.idl.epprtk.domain.epp_DomainCreateReq
  * @see org.openrtk.idl.epprtk.domain.epp_DomainDeleteReq
@@ -28,7 +28,7 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
 
     /**
      *
-     * @param command the name of the command for which launch extensions are being created. Possible
+     * @param command the name of the command for which application extensions are being created. Possible
      *                values are create, delete, update and info
      */
     public DomainApplicationCommandExtension(String command) {
@@ -44,7 +44,7 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
     public String toXML() throws epp_XMLException {
         final Document extensionDoc = new DocumentImpl();
         final Element commandElement = extensionDoc.createElement(command.name());
-        commandElement.setAttribute("xmlns", XMLNamespaces.LAUNCH_NAMESPACE);
+        commandElement.setAttribute("xmlns", XMLNamespaces.APPLICATION_NAMESPACE);
 
         processInnerElements(commandElement, extensionDoc);
 
@@ -53,7 +53,8 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
         try {
             variantExtensionXML = createXMLSnippetFromDoc(extensionDoc);
         } catch (final IOException e) {
-            throw new epp_XMLException("IOException occured while creating launch extension XML.\n" + e.getMessage());
+            throw new epp_XMLException("IOException occured while creating application extension XML.\n"
+                    + e.getMessage());
         }
         return variantExtensionXML;
     }

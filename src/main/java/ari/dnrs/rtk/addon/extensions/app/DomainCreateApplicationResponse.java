@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import java.io.IOException;
 import java.util.GregorianCalendar;
@@ -21,7 +21,7 @@ import ari.dnrs.rtk.addon.utils.XMLUtil;
  * is sent by a compliant EPP server in response to a valid domain create
  * command with domain create application extension.
  *
- * @see ari.dnrs.rtk.addon.extensions.launch.DomainApplicationCommandExtension
+ * @see ari.dnrs.rtk.addon.extensions.app.DomainApplicationCommandExtension
  * @see org.openrtk.idl.epprtk.domain.epp_DomainCreateReq
  */
 public class DomainCreateApplicationResponse extends EPPXMLBase {
@@ -37,7 +37,7 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
         try {
             xml_ = responseXml;
             Element creDataNode = getDocumentElement();
-            NodeList nodeList = creDataNode.getElementsByTagNameNS(XMLNamespaces.LAUNCH_NAMESPACE, "*");
+            NodeList nodeList = creDataNode.getElementsByTagNameNS(XMLNamespaces.APPLICATION_NAMESPACE, "*");
 
             for (int count = 0; count < nodeList.getLength(); count++) {
                 Node node = nodeList.item(count);

@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DomainApplicationCommandExtensionTest {
 
-    String CREATE_REQUEST_WITH_LAUNCH_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    String CREATE_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
             + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
@@ -22,7 +22,7 @@ public class DomainApplicationCommandExtensionTest {
             + "<extension><create xmlns=\"urn:ar:params:xml:ns:application-1.0\"><phase>sunrise</phase></create>"
             + "</extension><clTRID>JTKUTEST.20070101.010101.0</clTRID></command></epp>";
 
-    String DELETE_REQUEST_WITH_LAUNCH_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    String DELETE_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
             + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
@@ -32,7 +32,7 @@ public class DomainApplicationCommandExtensionTest {
             + "<delete xmlns=\"urn:ar:params:xml:ns:application-1.0\"><id>sunrise-application-id</id></delete>"
             + "</extension><clTRID>JTKUTEST.20070101.010101.0</clTRID></command></epp>";
 
-    String INFO_REQUEST_WITH_LAUNCH_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    String INFO_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
             + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
@@ -42,7 +42,7 @@ public class DomainApplicationCommandExtensionTest {
             + "<info xmlns=\"urn:ar:params:xml:ns:application-1.0\"><id>sunrise-application-id</id></info>"
             + "</extension><clTRID>JTKUTEST.20070101.010101.0</clTRID></command></epp>";
 
-    String UPDATE_REQUEST_WITH_LAUNCH_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    String UPDATE_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
             + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
@@ -90,7 +90,7 @@ public class DomainApplicationCommandExtensionTest {
         EPPDomainCreate eppDomainCreate = new EPPDomainCreate();
         eppDomainCreate.setRequestData(domainCreateRequest);
 
-        assertEquals(eppDomainCreate.toXML(), CREATE_REQUEST_WITH_LAUNCH_EXT);
+        assertEquals(eppDomainCreate.toXML(), CREATE_REQUEST_WITH_APP_EXT);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class DomainApplicationCommandExtensionTest {
         EPPDomainDelete eppDomainDelete = new EPPDomainDelete();
         eppDomainDelete.setRequestData(domainDeleteReq);
 
-        assertEquals(eppDomainDelete.toXML(), DELETE_REQUEST_WITH_LAUNCH_EXT);
+        assertEquals(eppDomainDelete.toXML(), DELETE_REQUEST_WITH_APP_EXT);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class DomainApplicationCommandExtensionTest {
         EPPDomainUpdate eppDomainUpdate = new EPPDomainUpdate();
         eppDomainUpdate.setRequestData(domainUpdateReq);
 
-        assertEquals(eppDomainUpdate.toXML(), UPDATE_REQUEST_WITH_LAUNCH_EXT);
+        assertEquals(eppDomainUpdate.toXML(), UPDATE_REQUEST_WITH_APP_EXT);
     }
 
     @Test
@@ -135,6 +135,6 @@ public class DomainApplicationCommandExtensionTest {
         EPPDomainInfo eppDomainInfo = new EPPDomainInfo();
         eppDomainInfo.setRequestData(domainInfoReq);
 
-        assertEquals(eppDomainInfo.toXML(), INFO_REQUEST_WITH_LAUNCH_EXT);
+        assertEquals(eppDomainInfo.toXML(), INFO_REQUEST_WITH_APP_EXT);
     }
 }

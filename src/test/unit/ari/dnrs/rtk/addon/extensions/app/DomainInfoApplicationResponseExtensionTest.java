@@ -1,4 +1,4 @@
-package ari.dnrs.rtk.addon.extensions.launch;
+package ari.dnrs.rtk.addon.extensions.app;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +12,9 @@ import static org.junit.Assert.assertTrue;
 public class DomainInfoApplicationResponseExtensionTest {
 
     @Test
-    public void shouldReturnLaunchDetailsForInfoCommand() {
+    public void shouldReturnApplicationDetailsForInfoCommand() {
         final String dnsForm = "test-domain";
-        final DomainInfoApplicationResponseExtension launchExtension = new DomainInfoApplicationResponseExtension();
+        final DomainInfoApplicationResponseExtension appExtension = new DomainInfoApplicationResponseExtension();
         String applicationId = "sunrise-application-id";
         String phase = "sunrise";
         List<String> statuses = new ArrayList<String>();
@@ -22,12 +22,12 @@ public class DomainInfoApplicationResponseExtensionTest {
         statuses.add("pendingOutcome");
         statuses.add("deleteProhibited");
         statuses.add("updateProhibited");
-        launchExtension.fromXML(getInfoResponseExpectedXml(dnsForm, applicationId, phase, statuses));
+        appExtension.fromXML(getInfoResponseExpectedXml(dnsForm, applicationId, phase, statuses));
 
-        assertTrue("Launch extension should have been initialised", launchExtension.isInitialised());
-        assertThat(launchExtension.getApplicationId(), is(applicationId));
-        assertThat(launchExtension.getPhase(), is(phase));
-        assertThat(launchExtension.getStatuses(), is(statuses));
+        assertTrue("Application extension should have been initialised", appExtension.isInitialised());
+        assertThat(appExtension.getApplicationId(), is(applicationId));
+        assertThat(appExtension.getPhase(), is(phase));
+        assertThat(appExtension.getStatuses(), is(statuses));
     }
 
     private String getInfoResponseExpectedXml(final String domainName, final String applicationId, final String phase,
@@ -66,14 +66,14 @@ public class DomainInfoApplicationResponseExtensionTest {
         result.append("</resData>");
 
         result.append("<extension>");
-        result.append("<launch:infData xmlns:launch=\"urn:ar:params:xml:ns:application-1.0\"");
+        result.append("<app:infData xmlns:app=\"urn:ar:params:xml:ns:application-1.0\"");
         result.append(" xsi:schemaLocation=\"urn:ar:params:xml:ns:application-1.0 application-1.0.xsd\">");
-        result.append("<launch:id>" + applicationId + "</launch:id>");
-        result.append("<launch:phase>" + phase + "</launch:phase>");
+        result.append("<app:id>" + applicationId + "</app:id>");
+        result.append("<app:phase>" + phase + "</app:phase>");
         for (String status : statuses) {
-            result.append("<launch:status s=\"" + status + "\" />");
+            result.append("<app:status s=\"" + status + "\" />");
         }
-        result.append("</launch:infData>");
+        result.append("</app:infData>");
         result.append("</extension>");
 
         result.append("<trID>");
