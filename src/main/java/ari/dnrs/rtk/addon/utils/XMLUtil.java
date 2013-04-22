@@ -2,7 +2,6 @@ package ari.dnrs.rtk.addon.utils;
 
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
-import java.util.logging.Logger;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
