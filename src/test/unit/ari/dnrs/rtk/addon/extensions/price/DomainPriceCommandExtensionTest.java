@@ -1,4 +1,8 @@
-package ari.dnrs.rtk.addon.extensions.premium;
+package ari.dnrs.rtk.addon.extensions.price;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.math.BigDecimal;
 
@@ -6,18 +10,15 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.openrtk.idl.epprtk.*;
 import org.openrtk.idl.epprtk.domain.*;
+import org.openrtk.idl.epprtk.*;
 
+import com.tucows.oxrs.epprtk.rtk.xml.EPPDomainRenew;
 import com.tucows.oxrs.epprtk.rtk.xml.EPPDomainCheck;
 import com.tucows.oxrs.epprtk.rtk.xml.EPPDomainCreate;
 import com.tucows.oxrs.epprtk.rtk.xml.EPPDomainTransfer;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
-
-public class DomainPremiumCommandExtensionTest {
+public class DomainPriceCommandExtensionTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -37,7 +38,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:create>"
             + "</create>"
             + "<extension>"
-            + "<create xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<create xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack/>"
             + "</create>"
             + "</extension>"
@@ -60,7 +61,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:create>"
             + "</create>"
             + "<extension>"
-            + "<create xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<create xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack>"
             + "<price>200.0</price>"
             + "</ack>"
@@ -85,7 +86,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:create>"
             + "</create>"
             + "<extension>"
-            + "<create xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<create xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack>"
             + "<renewalPrice>95.9</renewalPrice>"
             + "</ack>"
@@ -110,7 +111,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:create>"
             + "</create>"
             + "<extension>"
-            + "<create xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<create xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack>"
             + "<price>200.0</price>"
             + "<renewalPrice>90.95</renewalPrice>"
@@ -120,6 +121,7 @@ public class DomainPremiumCommandExtensionTest {
             + "<clTRID>JTKUTEST.20070101.010101.0</clTRID>"
             + "</command>"
             + "</epp>";
+
     private static final String DOMAIN_CHECK_PREMIUM_EXTENSION = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
             "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\" xmlns:xsi=\"http://www.w3" +
             ".org/2001/XMLSchema-instance\" " +
@@ -133,11 +135,74 @@ public class DomainPremiumCommandExtensionTest {
             "</domain:check>" +
             "</check>" +
             "<extension>" +
-            "<check xmlns=\"urn:ar:params:xml:ns:premium-1.0\"/>" +
+            "<check xmlns=\"urn:ar:params:xml:ns:price-1.0\"/>" +
             "</extension>" +
             "<clTRID>JTKUTEST.20070101.010101.0</clTRID>" +
             "</command>" +
             "</epp>";
+
+    private static final String DOMAIN_CHECK_PREMIUM_EXTENSION_PERIOD = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+            "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\" xmlns:xsi=\"http://www.w3" +
+            ".org/2001/XMLSchema-instance\" " +
+            "xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">" +
+            "<command>" +
+            "<check>" +
+            "<domain:check xmlns:domain=\"urn:ietf:params:xml:ns:domain-1.0\" " +
+            "xsi:schemaLocation=\"urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd\">" +
+            "<domain:name>domain1.zone</domain:name>" +
+            "<domain:name>domain2.zone</domain:name>" +
+            "</domain:check>" +
+            "</check>" +
+            "<extension>" +
+            "<check xmlns=\"urn:ar:params:xml:ns:price-1.0\">" +
+            "<period unit=\"y\">4</period>" +
+            "</check>" +
+            "</extension>" +
+            "<clTRID>JTKUTEST.20070101.010101.0</clTRID>" +
+            "</command>" +
+            "</epp>";
+
+    private final static String DOMAIN_RENEW_REQUEST_ACK_NO_PRICE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+            + "xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
+            + "<command>"
+            + "<renew>"
+            + "<domain:renew xmlns:domain=\"urn:ietf:params:xml:ns:domain-1.0\" "
+            + "xsi:schemaLocation=\"urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd\">"
+            + "<domain:name>premium.example</domain:name>"
+            + "<domain:curExpDate>2012-12-12</domain:curExpDate>"
+            + "</domain:renew>"
+            + "</renew>"
+            + "<extension>"
+            + "<renew xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
+            + "<ack/>"
+            + "</renew>"
+            + "</extension>"
+            + "<clTRID>JTKUTEST.20070101.010101.0</clTRID>"
+            + "</command>"
+            + "</epp>";
+
+    private final static String DOMAIN_RENEW_REQUEST_ACK_RENEW_PRICE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+            + "xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
+            + "<command>"
+            + "<renew>"
+            + "<domain:renew xmlns:domain=\"urn:ietf:params:xml:ns:domain-1.0\" "
+            + "xsi:schemaLocation=\"urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd\">"
+            + "<domain:name>premium.example</domain:name>"
+            + "<domain:curExpDate>2012-12-12</domain:curExpDate>"
+            + "</domain:renew>"
+            + "</renew>"
+            + "<extension>"
+            + "<renew xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
+            + "<ack>"
+            + "<renewalPrice>90.95</renewalPrice>"
+            + "</ack>"
+            + "</renew>"
+            + "</extension>"
+            + "<clTRID>JTKUTEST.20070101.010101.0</clTRID>"
+            + "</command>"
+            + "</epp>";
 
     private final static String DOMAIN_TRANSFER_REQUEST_ACK_NO_PRICE_XML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
@@ -153,7 +218,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:transfer>"
             + "</transfer>"
             + "<extension>"
-            + "<transfer xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<transfer xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack/>"
             + "</transfer>"
             + "</extension>"
@@ -175,7 +240,7 @@ public class DomainPremiumCommandExtensionTest {
             + "</domain:transfer>"
             + "</transfer>"
             + "<extension>"
-            + "<transfer xmlns=\"urn:ar:params:xml:ns:premium-1.0\">"
+            + "<transfer xmlns=\"urn:ar:params:xml:ns:price-1.0\">"
             + "<ack>"
             + "<renewalPrice>90.95</renewalPrice>"
             + "</ack>"
@@ -188,8 +253,9 @@ public class DomainPremiumCommandExtensionTest {
 
     private epp_Command commandData;
 
+    private epp_DomainCheckReq epp_domainCheckReq;
     private epp_DomainCreateReq domainCreateRequest;
-    private  epp_DomainCheckReq epp_domainCheckReq;
+    private epp_DomainRenewReq domainRenewRequest;
     private epp_DomainTransferReq domainTransferReq;
 
     @Before
@@ -213,13 +279,17 @@ public class DomainPremiumCommandExtensionTest {
         domainTransferReq = new epp_DomainTransferReq();
         domainTransferReq.setName("premium.example");
         domainTransferReq.setTrans(transferRequest);
+
+        domainRenewRequest = new epp_DomainRenewReq();
+        domainRenewRequest.setName("premium.example");
+        domainRenewRequest.setCurrentExpirationDate("2012-12-12");
     }
 
     @Test
     public void shouldCreateExtensionForDomainCheckCommand() throws epp_XMLException {
         epp_domainCheckReq.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("check");
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("check");
 
         commandData.setExtensions(new epp_Extension[]{extension});
 
@@ -233,7 +303,7 @@ public class DomainPremiumCommandExtensionTest {
     public void shouldCreateExtensionForDomainCheckWithoutPriceEvenWhenPriceSpecified() throws epp_XMLException {
         epp_domainCheckReq.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("check", BigDecimal.valueOf(100.00),
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("check", BigDecimal.valueOf(100.00),
                 BigDecimal.valueOf(200.00));
 
         commandData.setExtensions(new epp_Extension[]{extension});
@@ -245,10 +315,24 @@ public class DomainPremiumCommandExtensionTest {
     }
 
     @Test
+    public void shouldCreateExtensionForDomainCheckWithPeriodWhenSupplied() throws epp_XMLException {
+        epp_domainCheckReq.setCmd(commandData);
+
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("check", 4);
+
+        commandData.setExtensions(new epp_Extension[]{extension});
+
+        EPPDomainCheck eppDomainCheck = new EPPDomainCheck();
+        eppDomainCheck.setRequestData(epp_domainCheckReq);
+
+        assertEquals(eppDomainCheck.toXML(), DOMAIN_CHECK_PREMIUM_EXTENSION_PERIOD);
+    }
+
+    @Test
     public void shouldCreateDomainCreateXmlWithPremiumAckAndNoPrices() throws Exception {
         domainCreateRequest.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("create", null, null);
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("create", null, null);
         commandData.setExtensions(new epp_Extension[]{extension});
 
         EPPDomainCreate eppDomainCreate = new EPPDomainCreate();
@@ -261,7 +345,7 @@ public class DomainPremiumCommandExtensionTest {
     public void shouldCreateDomainCreateXmlWithPremiumAckAndCreatePrice() throws Exception {
         domainCreateRequest.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("create",
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("create",
                 BigDecimal.valueOf(200.00), null);
         commandData.setExtensions(new epp_Extension[]{extension});
 
@@ -275,7 +359,7 @@ public class DomainPremiumCommandExtensionTest {
     public void shouldCreateDomainCreateXmlWithPremiumAckAndRenewalPrice() throws Exception {
         domainCreateRequest.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("create",
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("create",
                 null, BigDecimal.valueOf(95.90));
         commandData.setExtensions(new epp_Extension[]{extension});
 
@@ -289,7 +373,7 @@ public class DomainPremiumCommandExtensionTest {
     public void shouldCreateDomainCreateXmlWithPremiumAckAndBothPrices() throws Exception {
         domainCreateRequest.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("create",
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("create",
                 BigDecimal.valueOf(200.00), BigDecimal.valueOf(90.95));
         commandData.setExtensions(new epp_Extension[]{extension});
 
@@ -300,10 +384,37 @@ public class DomainPremiumCommandExtensionTest {
     }
 
     @Test
+    public void shouldCreateDomainRenewRequestXmlWithPremiumAckAndNoRenewalPrice() throws Exception {
+        domainRenewRequest.setCmd(commandData);
+
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("renew");
+        commandData.setExtensions(new epp_Extension[]{extension});
+
+        EPPDomainRenew eppDomainRenew = new EPPDomainRenew();
+        eppDomainRenew.setRequestData(domainRenewRequest);
+
+        assertEquals(eppDomainRenew.toXML(), DOMAIN_RENEW_REQUEST_ACK_NO_PRICE_XML);
+    }
+
+    @Test
+    public void shouldCreateDomainRenewRequestXmlWithPremiumAckIncludingRenewalPrices() throws Exception {
+        domainRenewRequest.setCmd(commandData);
+
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("renew", null,
+                BigDecimal.valueOf(90.95));
+        commandData.setExtensions(new epp_Extension[]{extension});
+
+        EPPDomainRenew eppDomainRenew = new EPPDomainRenew();
+        eppDomainRenew.setRequestData(domainRenewRequest);
+
+        assertEquals(eppDomainRenew.toXML(), DOMAIN_RENEW_REQUEST_ACK_RENEW_PRICE_XML);
+    }
+
+    @Test
     public void shouldCreateDomainTransferRequestXmlWithPremiumAckAndNoRenewalPrice() throws Exception {
         domainTransferReq.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("transfer");
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("transfer");
         commandData.setExtensions(new epp_Extension[]{extension});
 
         EPPDomainTransfer eppDomainTransfer = new EPPDomainTransfer();
@@ -316,7 +427,7 @@ public class DomainPremiumCommandExtensionTest {
     public void shouldCreateDomainTransferRequestXmlWithPremiumAckIncludingRenewalPrices() throws Exception {
         domainTransferReq.setCmd(commandData);
 
-        DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("transfer", null,
+        DomainPriceCommandExtension extension = new DomainPriceCommandExtension("transfer", null,
                 BigDecimal.valueOf(90.95));
         commandData.setExtensions(new epp_Extension[]{extension});
 
@@ -331,11 +442,11 @@ public class DomainPremiumCommandExtensionTest {
         thrown.expect(epp_XMLException.class);
 
         try {
-            DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension("invalid",
+            DomainPriceCommandExtension extension = new DomainPriceCommandExtension("invalid",
                     BigDecimal.valueOf(200.00), BigDecimal.valueOf(90.95));
         } catch (epp_XMLException exception) {
-            assertThat(exception.getErrorMessage(), is("Invalid command name for creating premium extension XML. "
-                    + "Valid names are: create ; check ; transfer ; "));
+            assertThat(exception.getErrorMessage(), is("Invalid command name for creating price extension XML. "
+                    + "Valid names are: create ; check ; transfer ; renew ; "));
             throw exception;
         }
     }
@@ -345,11 +456,11 @@ public class DomainPremiumCommandExtensionTest {
         thrown.expect(epp_XMLException.class);
 
         try {
-            DomainPremiumCommandExtension extension = new DomainPremiumCommandExtension(null,
+            DomainPriceCommandExtension extension = new DomainPriceCommandExtension(null,
                     BigDecimal.valueOf(200.00), BigDecimal.valueOf(90.95));
         } catch (epp_XMLException exception) {
-            assertThat(exception.getErrorMessage(), is("Invalid command name for creating premium extension XML. "
-                    + "Valid names are: create ; check ; transfer ; "));
+            assertThat(exception.getErrorMessage(), is("Invalid command name for creating price extension XML. "
+                    + "Valid names are: create ; check ; transfer ; renew ; "));
             throw exception;
         }
     }
