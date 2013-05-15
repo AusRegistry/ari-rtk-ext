@@ -11,9 +11,9 @@
 
     <!-- command-response extension elements -->
     <element name="check" type="price:chkType" />
-	<element name="create" type="premium:ackType" />
-    <element name="renew" type="premium:ackType" />
-    <element name="transfer" type="premium:ackType" />
+	<element name="create" type="price:ackType" />
+    <element name="renew" type="price:ackType" />
+    <element name="transfer" type="price:ackType" />
 
     <complexType name="chkType">
 		<sequence>
@@ -23,7 +23,7 @@
 	
 	<complexType name="ackType">
         <sequence>
-            <element name="ack" type="premium:priceAckType" />
+            <element name="ack" type="price:priceAckType" />
         </sequence>
     </complexType>
 
