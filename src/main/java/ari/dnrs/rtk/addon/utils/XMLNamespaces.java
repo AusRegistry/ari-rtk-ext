@@ -13,4 +13,5 @@ public class XMLNamespaces {
     public static final String PRICE_NAMESPACE =  "urn:ar:params:xml:ns:price-1.0";
     public static final String APPLICATION_NAMESPACE = "urn:ar:params:xml:ns:application-1.0";
     public static final String VARIANT_V1_1_NAMESPACE = "urn:ar:params:xml:ns:variant-1.1";
+    public static final String TMCH_NAMESPACE = "urn:ar:params:xml:ns:tmch-1.0";
 }
