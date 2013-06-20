@@ -49,23 +49,25 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
         processInnerElements(commandElement, extensionDoc);
 
         extensionDoc.appendChild(commandElement);
-        String variantExtensionXML = null;
+        String applicationExtensionXML = null;
         try {
-            variantExtensionXML = createXMLSnippetFromDoc(extensionDoc);
+            applicationExtensionXML = createXMLSnippetFromDoc(extensionDoc);
         } catch (final IOException e) {
             throw new epp_XMLException("IOException occured while creating application extension XML.\n"
                     + e.getMessage());
         }
-        return variantExtensionXML;
+        return applicationExtensionXML;
     }
 
     private void processInnerElements(Element commandElement, Document extensionDoc) {
         switch (command) {
             case create:
-                Element phase = extensionDoc.createElement("phase");
-                phase.appendChild(extensionDoc.createTextNode(phaseType));
-                commandElement.appendChild(phase);
-                break;
+                if (phaseType != null) {
+                    Element phase = extensionDoc.createElement("phase");
+                    phase.appendChild(extensionDoc.createTextNode(phaseType));
+                    commandElement.appendChild(phase);
+                    break;
+                }
             case delete:
             case update:
             case info:
@@ -78,11 +80,13 @@ public class DomainApplicationCommandExtension extends EPPXMLBase implements epp
     }
 
     /**
-     * This method does not have any implementation because only info has extension in
-     * response and is handled separately
+     * This method does not have any implementation because only create and info have extension in
+     * response and are handled separately
      *
      * @param responseXml
      * @throws epp_XMLException
+     * @see DomainInfoApplicationResponseExtension
+     * @see DomainCreateApplicationResponse
      */
     @Override
     public void fromXML(String responseXml) throws epp_XMLException {

@@ -66,14 +66,14 @@ public class DomainInfoApplicationResponseExtensionTest {
         result.append("</resData>");
 
         result.append("<extension>");
-        result.append("<app:infData xmlns:app=\"urn:ar:params:xml:ns:application-1.0\"");
+        result.append("<infData xmlns=\"urn:ar:params:xml:ns:application-1.0\"");
         result.append(" xsi:schemaLocation=\"urn:ar:params:xml:ns:application-1.0 application-1.0.xsd\">");
-        result.append("<app:id>" + applicationId + "</app:id>");
-        result.append("<app:phase>" + phase + "</app:phase>");
+        result.append("<id>" + applicationId + "</id>");
+        result.append("<phase>" + phase + "</phase>");
         for (String status : statuses) {
-            result.append("<app:status s=\"" + status + "\" />");
+            result.append("<status s=\"" + status + "\" />");
         }
-        result.append("</app:infData>");
+        result.append("</infData>");
         result.append("</extension>");
 
         result.append("<trID>");

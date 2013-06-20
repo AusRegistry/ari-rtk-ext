@@ -17,8 +17,7 @@ public class DomainVariantV1_1ResponseExtensionTest {
     public void testGetVariantsV1_1ForInfo() throws Exception {
         final String dnsForm = "xn--xha91b83h.com";
         final String variantDnsForm = "xn--lga31c50h.com";
-        final DomainVariantResponseExtensionV1_1 variantsExtension =
-                new DomainVariantResponseExtensionV1_1("info");
+        final DomainVariantResponseExtensionV1_1 variantsExtension = new DomainVariantResponseExtensionV1_1();
 
         variantsExtension.fromXml(getCreateResponseExpectedXml(dnsForm, "infData", variantDnsForm, "another",
                 "yetAnother"));
@@ -35,8 +34,7 @@ public class DomainVariantV1_1ResponseExtensionTest {
     public void testGetVariantsV1_1ForCreate() throws Exception {
         final String dnsForm = "xn--xha91b83h.com";
         final String variantDnsForm = "xn--lga31c50h.com";
-        final DomainVariantResponseExtensionV1_1 variantsExtension =
-                new DomainVariantResponseExtensionV1_1("create");
+        final DomainVariantResponseExtensionV1_1 variantsExtension = new DomainVariantResponseExtensionV1_1();
 
         variantsExtension.fromXml(getCreateResponseExpectedXml(dnsForm, "creData", variantDnsForm, "this", "that"));
 
@@ -46,36 +44,6 @@ public class DomainVariantV1_1ResponseExtensionTest {
         assertThat("Incorrect number of variants returned", variantList.size(), is(3));
         assertThat(variantList, hasItems(new IdnDomainVariant(variantDnsForm), new IdnDomainVariant("this"),
                 new IdnDomainVariant("that")));
-    }
-
-    @Test
-    public void testGetNoVariantsV1_1ForCreateWithInfoInExtension() throws Exception {
-        final String dnsForm = "xn--xha91b83h.com";
-        final String variantDnsForm = "xn--lga31c50h.com";
-        final DomainVariantResponseExtensionV1_1 variantsExtension =
-                new DomainVariantResponseExtensionV1_1("create");
-
-        variantsExtension.fromXml(getCreateResponseExpectedXml(dnsForm, "infData", variantDnsForm));
-
-        assertFalse("Variant extension should not have been initialised",
-                variantsExtension.isInitialised());
-        final List<IdnDomainVariant> variantList = variantsExtension.getVariants();
-        assertThat("Incorrect number of variants returned", variantList.size(), is(0));
-    }
-
-    @Test
-    public void testGetNoVariantsV1_1ForInfoWithCreateInExtension() throws Exception {
-        final String dnsForm = "xn--xha91b83h.com";
-        final String variantDnsForm = "xn--lga31c50h.com";
-        final DomainVariantResponseExtensionV1_1 variantsExtension =
-                new DomainVariantResponseExtensionV1_1("info");
-
-        variantsExtension.fromXml(getCreateResponseExpectedXml(dnsForm, "creData", variantDnsForm));
-
-        assertFalse("Variant extension should not have been initialised",
-                variantsExtension.isInitialised());
-        final List<IdnDomainVariant> variantList = variantsExtension.getVariants();
-        assertThat("Incorrect number of variants returned", variantList.size(), is(0));
     }
 
     private static String getCreateResponseExpectedXml(final String domainName,
@@ -98,16 +66,14 @@ public class DomainVariantV1_1ResponseExtensionTest {
         result.append(            "</domain:creData>");
         result.append(        "</resData>");
 
-        if (variantDnsForm != null) {
-            result.append("<extension>");
-            result.append("<" + tagType +" xmlns=\"urn:ar:params:xml:ns:variant-1.1\"");
-            result.append(" xsi:schemaLocation=\"urn:ar:params:xml:ns:variant-1.1 variant-1.1.xsd\">");
-            for (String variant : variantDnsForm) {
-                result.append("<variant>" + variant + "</variant>");
-            }
-            result.append("</" + tagType + ">");
-            result.append("</extension>");
+        result.append("<extension>");
+        result.append("<" + tagType + " xmlns=\"urn:ar:params:xml:ns:variant-1.1\"");
+        result.append(" xsi:schemaLocation=\"urn:ar:params:xml:ns:variant-1.1 variant-1.1.xsd\">");
+        for (String variant : variantDnsForm) {
+            result.append("<variant>" + variant + "</variant>");
         }
+        result.append("</" + tagType + ">");
+        result.append("</extension>");
 
         result.append(        "<trID>");
         result.append(            "<clTRID>ABC-12345</clTRID>");

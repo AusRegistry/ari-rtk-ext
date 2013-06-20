@@ -2,14 +2,14 @@ package ari.dnrs.rtk.addon.examples;
 
 import java.util.List;
 
+import ari.dnrs.rtk.addon.bean.IdnDomainVariant;
+import ari.dnrs.rtk.addon.extensions.variant.DomainVariantResponseExtensionV1_1;
 import org.openrtk.idl.epprtk.epp_Command;
 import org.openrtk.idl.epprtk.epp_Response;
 import org.openrtk.idl.epprtk.domain.epp_DomainInfoReq;
 import org.openrtk.idl.epprtk.domain.epp_DomainInfoRsp;
 
-import ari.dnrs.rtk.addon.bean.DomainVariantBean;
 import ari.dnrs.rtk.addon.extensions.idn.DomainIdnCommandExtension;
-import ari.dnrs.rtk.addon.extensions.variant.DomainVariantCommandExtension;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
 import com.tucows.oxrs.epprtk.rtk.EPPClient;
@@ -46,7 +46,8 @@ public class DomainInfoCommandWithIdnAndVariantExtensionsExample {
         eppClient.setLang("en");
 
         // Add the extension name space to tell the EPP server what additional extensions the client supports
-        eppClient.setEPPServiceExtensions(new String[] {XMLNamespaces.IDN_NAMESPACE, XMLNamespaces.VARIANT_NAMESPACE});
+        eppClient.setEPPServiceExtensions(new String[] {XMLNamespaces.IDN_NAMESPACE,
+                XMLNamespaces.VARIANT_V1_1_NAMESPACE});
 
         eppClient.connectAndGetGreeting();
 
@@ -79,16 +80,15 @@ public class DomainInfoCommandWithIdnAndVariantExtensionsExample {
 
             System.out.println("IDNA Response Language: " + idnCommandExtension.getLanguageTag());
 
-            DomainVariantCommandExtension variantCommandExtension = new DomainVariantCommandExtension();
-            variantCommandExtension.fromXML(extensionStrings[0]);
+            DomainVariantResponseExtensionV1_1 variantCommandExtension = new DomainVariantResponseExtensionV1_1();
+            variantCommandExtension.fromXml(extensionStrings[0]);
 
-            final List<DomainVariantBean> variantList = variantCommandExtension.getInfoVariantList();
+            final List<IdnDomainVariant> variantList = variantCommandExtension.getVariants();
             int i = 0;
-            for (DomainVariantBean domainVariant : variantList) {
+            for (IdnDomainVariant domainVariant : variantList) {
                 i++;
                 System.out.println("Variant: " + i);
                 System.out.println("Variant Domain DNS Form:" + domainVariant.getName());
-                System.out.println("Variant User Form:" + domainVariant.getUserForm());
             }
 
         } else {

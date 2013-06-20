@@ -26,8 +26,7 @@ import ari.dnrs.rtk.addon.utils.XMLUtil;
  */
 public class DomainCreateApplicationResponse extends EPPXMLBase {
     private String applicationId;
-    private String name;
-    private GregorianCalendar createDate;
+    private String phase;
 
     /**
      *
@@ -45,11 +44,8 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
                     case id:
                         applicationId = node.getFirstChild().getNodeValue();
                         break;
-                    case name:
-                        name = node.getFirstChild().getNodeValue();
-                        break;
-                    case crDate:
-                        createDate = XMLUtil.fromXSDateTime(node.getFirstChild().getNodeValue());
+                    case phase:
+                        phase = node.getFirstChild().getNodeValue();
                         break;
                 }
             }
@@ -57,26 +53,15 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
-        } catch (DatatypeConfigurationException e) {
-            e.printStackTrace();
         }
-
     }
 
     /**
      *
-     * @return the create date
+     * @return the domain phase
      */
-    public GregorianCalendar getCreateDate() {
-        return createDate;
-    }
-
-    /**
-     *
-     * @return the domain name
-     */
-    public String getName() {
-        return name;
+    public String getPhase() {
+        return phase;
     }
 
     /**
@@ -88,6 +73,6 @@ public class DomainCreateApplicationResponse extends EPPXMLBase {
     }
 
     private enum TagNames {
-        id, name, crDate, creData
+        id, phase, creData
     }
 }

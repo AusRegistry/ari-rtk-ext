@@ -19,9 +19,9 @@ import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 import com.tucows.oxrs.epprtk.rtk.EPPClient;
 import com.tucows.oxrs.epprtk.rtk.xml.EPPDomainCreate;
 
-public class DomainCreateCommandIdnaExtensionExample {
+public class DomainCreateCommandIdnExtensionExample {
 
-    private static String USAGE = "Usage: ari.dnrs.rtk.addon.examples.DomainCreateCommandIdnaExtensionExample"
+    private static String USAGE = "Usage: ari.dnrs.rtk.addon.examples.DomainCreateCommandIdnExtensionExample"
             + " epp_host_name epp_host_port epp_client_id epp_password"
             + " dns_form domain_language auth_info registrant_contact technical_contact";
 

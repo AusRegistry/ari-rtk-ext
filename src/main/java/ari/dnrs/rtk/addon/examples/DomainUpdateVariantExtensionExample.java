@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import ari.dnrs.rtk.addon.bean.IdnDomainVariant;
+import ari.dnrs.rtk.addon.extensions.variant.DomainUpdateVariantCommandExtensionV1_1;
 import org.openrtk.idl.epprtk.epp_Command;
 import org.openrtk.idl.epprtk.epp_Exception;
 import org.openrtk.idl.epprtk.epp_Extension;
@@ -15,7 +17,6 @@ import org.openrtk.idl.epprtk.epp_XMLException;
 import org.openrtk.idl.epprtk.domain.epp_DomainUpdateReq;
 import org.openrtk.idl.epprtk.domain.epp_DomainUpdateRsp;
 
-import ari.dnrs.rtk.addon.extensions.variant.DomainVariantCommandExtension;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
 import com.tucows.oxrs.epprtk.rtk.EPPClient;
@@ -89,7 +90,7 @@ public class DomainUpdateVariantExtensionExample {
 
         // Set service extensions to the EPP client at login that would be used
         // in this session.
-        eppClient.setEPPServiceExtensions(new String[] {XMLNamespaces.VARIANT_NAMESPACE});
+        eppClient.setEPPServiceExtensions(new String[] {XMLNamespaces.VARIANT_V1_1_NAMESPACE});
 
         eppClient.connectAndGetGreeting();
         eppClient.login(eppClientID);
@@ -100,33 +101,17 @@ public class DomainUpdateVariantExtensionExample {
 
         final String domainName = classProperties.getProperty("domain.name");
 
-        final String[] variantsUserformToAdd = classProperties.getProperty("variants.userform.to.add").split(",");
         final String[] variantsDNSFormToAdd = classProperties.getProperty("variants.dnsform.to.add").split(",");
 
-        if (variantsUserformToAdd.length != variantsDNSFormToAdd.length) {
-            System.out.println("For the variants to remove the number of user forms and dns forms are not equal");
-            System.exit(1);
-        }
-
-        final String[] variantsUserformToRem = classProperties.getProperty("variants.userform.to.remove").split(",");
         final String[] variantsDNSFormToRem = classProperties.getProperty("variants.dnsform.to.remove").split(",");
 
-        if (variantsUserformToRem.length != variantsDNSFormToRem.length) {
-            System.out.println("For the variants to remove the number of user forms and dns forms are not equal");
-            System.exit(1);
+        DomainUpdateVariantCommandExtensionV1_1 domainVariantExtension = new DomainUpdateVariantCommandExtensionV1_1();
+        for (int i = 0; i < variantsDNSFormToAdd.length; i++) {
+            domainVariantExtension.addVariant(new IdnDomainVariant(variantsDNSFormToAdd[i]));
         }
 
-        DomainVariantCommandExtension domainVariantExtension = new DomainVariantCommandExtension();
-        for (int i = 0; i < variantsUserformToAdd.length; i++) {
-            if (variantsDNSFormToAdd[i].length() > 0) {
-                domainVariantExtension.addToVariantsToAddList(variantsDNSFormToAdd[i], variantsUserformToAdd[i]);
-            }
-        }
-
-        for (int i = 0; i < variantsUserformToRem.length; i++) {
-            if (variantsDNSFormToRem[i].length() > 0) {
-                domainVariantExtension.addToVariantsToRemoveList(variantsDNSFormToRem[i], variantsUserformToRem[i]);
-            }
+        for (int i = 0; i < variantsDNSFormToRem.length; i++) {
+            domainVariantExtension.removeVariant(new IdnDomainVariant(variantsDNSFormToRem[i]));
         }
 
         epp_DomainUpdateReq domainUpdateRequest = new epp_DomainUpdateReq();

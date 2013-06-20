@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 
 public class DomainApplicationCommandExtensionTest {
 
-    String CREATE_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    String CREATE_REQUEST_WITH_APP_EXT_WITH_PHASE = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
             + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
             + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
             + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
@@ -20,6 +20,17 @@ public class DomainApplicationCommandExtensionTest {
             + "<domain:name>jtkutest.com.au</domain:name><domain:authInfo><domain:pw>jtkUT3st</domain:pw>"
             + "</domain:authInfo></domain:create></create>"
             + "<extension><create xmlns=\"urn:ar:params:xml:ns:application-1.0\"><phase>sunrise</phase></create>"
+            + "</extension><clTRID>JTKUTEST.20070101.010101.0</clTRID></command></epp>";
+
+    String CREATE_REQUEST_WITH_APP_EXT_WITH_ID = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+            + "<epp xmlns=\"urn:ietf:params:xml:ns:epp-1.0\""
+            + " xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+            + " xsi:schemaLocation=\"urn:ietf:params:xml:ns:epp-1.0 epp-1.0.xsd\">"
+            + "<command><create><domain:create xmlns:domain=\"urn:ietf:params:xml:ns:domain-1.0\" "
+            + "xsi:schemaLocation=\"urn:ietf:params:xml:ns:domain-1.0 domain-1.0.xsd\">"
+            + "<domain:name>jtkutest.com.au</domain:name><domain:authInfo><domain:pw>jtkUT3st</domain:pw>"
+            + "</domain:authInfo></domain:create></create>"
+            + "<extension><create xmlns=\"urn:ar:params:xml:ns:application-1.0\"><id>application-ID-123</id></create>"
             + "</extension><clTRID>JTKUTEST.20070101.010101.0</clTRID></command></epp>";
 
     String DELETE_REQUEST_WITH_APP_EXT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
@@ -90,7 +101,22 @@ public class DomainApplicationCommandExtensionTest {
         EPPDomainCreate eppDomainCreate = new EPPDomainCreate();
         eppDomainCreate.setRequestData(domainCreateRequest);
 
-        assertEquals(eppDomainCreate.toXML(), CREATE_REQUEST_WITH_APP_EXT);
+        assertEquals(CREATE_REQUEST_WITH_APP_EXT_WITH_PHASE, eppDomainCreate.toXML());
+    }
+
+    @Test
+    public void shouldHaveValidXmlForApplicationExtensionForCreateWithIdElement() throws epp_XMLException {
+        domainCreateRequest.setCmd(commandData);
+
+        domainApplicationCommandExtension = new DomainApplicationCommandExtension("create");
+        domainApplicationCommandExtension.setApplicationId("application-ID-123");
+
+        commandData.setExtensions(new epp_Extension[]{domainApplicationCommandExtension});
+
+        EPPDomainCreate eppDomainCreate = new EPPDomainCreate();
+        eppDomainCreate.setRequestData(domainCreateRequest);
+
+        assertEquals(CREATE_REQUEST_WITH_APP_EXT_WITH_ID, eppDomainCreate.toXML());
     }
 
     @Test

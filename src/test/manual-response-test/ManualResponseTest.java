@@ -1,9 +1,9 @@
 import java.io.InputStream;
 import java.util.List;
 
-import ari.dnrs.rtk.addon.bean.DomainVariantBean;
+import ari.dnrs.rtk.addon.bean.IdnDomainVariant;
 import ari.dnrs.rtk.addon.extensions.idn.DomainIdnCommandExtension;
-import ari.dnrs.rtk.addon.extensions.variant.DomainVariantCommandExtension;
+import ari.dnrs.rtk.addon.extensions.variant.DomainVariantResponseExtensionV1_1;
 
 
 /**
@@ -73,10 +73,10 @@ public class ManualResponseTest {
      * @throws Exception if any exception occurs during the test 
      */
     private static void testVariantExtension(String responseXML) throws Exception {
-        final DomainVariantCommandExtension variantExtension = new DomainVariantCommandExtension();
+        final DomainVariantResponseExtensionV1_1 variantExtension = new DomainVariantResponseExtensionV1_1();
         try {
             System.out.println("[Attempting to read XML]");
-            variantExtension.fromXML(responseXML);
+            variantExtension.fromXml(responseXML);
         } catch (Exception e) {
             System.out.println("[XML was not able to be read correctly by command extension]");
             throw e;
@@ -84,11 +84,10 @@ public class ManualResponseTest {
         System.out.println("[Reading XML completed]");
 
         System.out.println("[Printing populated values]");
-        final List<DomainVariantBean> variantList = variantExtension.getInfoVariantList();
+        final List<IdnDomainVariant> variantList = variantExtension.getVariants();
         int count = 1;
-        for (DomainVariantBean variant : variantList) {
+        for (IdnDomainVariant variant : variantList) {
             System.out.println("Variant " + count++ + ":");
-            System.out.println("User form: " + variant.getUserForm());
             System.out.println("DNS form: " + variant.getName());
         }
         

@@ -24,10 +24,9 @@ import ari.dnrs.rtk.addon.utils.XMLNamespaces;
  * with the Claims key Check aspect of the Domain Name Trademark Clearing extension.</p>
  *
  * <p>Use this to express the will to retrieve Lookup key, as part of the result of this command, which is being
- * submitted in as part of an EPP Domain Check command compliant with ???. The response expected
- * from a server should be handled by a Domain Check Response.
+ * submitted in as part of an EPP Domain Check command.
  * Also use this to get claims key for domain name during Trademark Clearing House Claims Period as provided
- * in an EPP Domain Check response compliant with RFC???? and RFC????.
+ * in the extension element with an EPP Domain Check response.
  * Such a service element is sent by a compliant EPP server in response
  * to a valid Domain Check command with the Domain Name Trademark Clearing House extension.</p>
  *

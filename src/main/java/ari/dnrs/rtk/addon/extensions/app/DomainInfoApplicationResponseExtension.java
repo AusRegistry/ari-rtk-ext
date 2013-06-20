@@ -34,14 +34,13 @@ public class DomainInfoApplicationResponseExtension  extends EPPXMLBase {
 
             for (int count = 0; count < nodeList.getLength(); count++) {
                 Node node = nodeList.item(count);
-                if (node.getNodeName().equals("app:id")) {
+                if (node.getNodeName().equals("id")) {
                     applicationId = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("app:phase")) {
+                } else if (node.getNodeName().equals("phase")) {
                     phase = node.getFirstChild().getNodeValue();
-                } else if (node.getNodeName().equals("app:status")) {
+                } else if (node.getNodeName().equals("status")) {
                     statuses.add(node.getAttributes().getNamedItem("s").getNodeValue());
                 }
-
             }
         } catch (IOException e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 import ari.dnrs.rtk.addon.utils.XMLNamespaces;
 
 /**
- * Use this to fetch the price price information for domain check with price response
+ * Use this to fetch the price information for a domain name using domain check with price response
  *
  * @see ari.dnrs.rtk.addon.extensions.price.DomainPriceCommandExtension
  */

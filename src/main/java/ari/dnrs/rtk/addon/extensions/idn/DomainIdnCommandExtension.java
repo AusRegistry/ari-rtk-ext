@@ -19,7 +19,6 @@ import com.tucows.oxrs.epprtk.rtk.xml.EPPXMLBase;
 /**
  * Sets the IDN Domain extension properties for an EPP Domain Create command or
  * retrieve the IDN Domain extension properties from an EPP Domain Info command.
- *
  */
 public final class DomainIdnCommandExtension extends EPPXMLBase implements epp_Extension {
 
@@ -47,7 +46,7 @@ public final class DomainIdnCommandExtension extends EPPXMLBase implements epp_E
         Element languageTagElement = extensionDoc.createElement("languageTag");
         languageTagElement.appendChild(extensionDoc.createTextNode(languageTag));
         commandElement.appendChild(languageTagElement);
-        
+
         extensionDoc.appendChild(commandElement);
 
         String idnExtensionXML = null;
