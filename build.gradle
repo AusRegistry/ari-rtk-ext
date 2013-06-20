@@ -61,7 +61,18 @@ task wrapper(type: Wrapper) {
     gradleVersion = "$gradleWrapperVersion"
 }
 
-uploadArchives.dependsOn javadoc
+task checkVersionNumbersInReadme << {
+    def readme = file("readme.md")
+    def looksLikeVersionNumber = ~/\d+\.\d+\.\d+/
+    def versionNumbersInReadmeFile = readme.readLines().collectMany { line ->
+        looksLikeVersionNumber.matcher(line).collect { match ->
+            (toolkitVersion == match) ? null : match
+        }.findResults{ x -> x }
+    }
+    assert versionNumbersInReadmeFile.isEmpty()
+}
+
+uploadArchives.dependsOn checkVersionNumbersInReadme, javadoc
 
 uploadArchives {
     uploadDescriptor = false
