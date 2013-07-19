@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AusRegistry/ari-rtk-ext.png)](https://travis-ci.org/AusRegistry/ari-rtk-ext)
+
 ## Downloads
 
 The latest ari-rtk-addon is available for download. [ari-rtk-addon v1.0.0](http://ausregistry.github.com/repo/au/com/ausregistry/ari-rtk-addon/1.0.0/ari-rtk-addon-1.0.0.jar) ([sources](http://ausregistry.github.com/repo/au/com/ausregistry/ari-rtk-addon/1.0.0/ari-rtk-addon-1.0.0-sources.jar) | [javadoc](http://ausregistry.github.com/repo/au/com/ausregistry/ari-rtk-addon/1.0.0/ari-rtk-addon-1.0.0-javadoc.jar))
