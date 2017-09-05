@@ -35,7 +35,7 @@ public final class DomainIetfIdnCommandExtension extends EPPXMLBase implements e
 	{
 		if (table == null || table.isEmpty())
 		{
-            throw new IllegalArgumentException("Language must not be null or empty");
+			throw new IllegalArgumentException("Language must not be null or empty");
 		}
 		this.table = table;
 		this.uname = uname;
